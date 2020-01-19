@@ -9,10 +9,9 @@ import (
 )
 
 func main() {
-	router := fasthttprouter.New()
-
 	storage.Get()
 
+	router := fasthttprouter.New()
 	{
 		h := anagram.Handler{}
 		router.GET("/", h.Version)
@@ -20,11 +19,8 @@ func main() {
 		router.GET("/get", h.Get)
 	}
 
-	// router.GET("/get", Get)
-	// router.POST("/load", Load)
-
 	log.Info().Msg("starting web service")
 	if err := fasthttp.ListenAndServe(":8080", router.Handler); err != nil {
-		log.Fatal().Err(err).Msg("failed to start service")
+		log.Fatal().Err(err).Msg("failed to start web service")
 	}
 }

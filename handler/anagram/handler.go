@@ -25,10 +25,6 @@ func (h *Handler) Version(ctx *fasthttp.RequestCtx) {
 	})
 }
 
-type Database struct {
-	Anagrams map[string][]string
-}
-
 func (h *Handler) Get(ctx *fasthttp.RequestCtx) {
 	req := GetRequest{
 		Word: string(ctx.FormValue("word")),
@@ -59,7 +55,6 @@ func (h *Handler) Load(ctx *fasthttp.RequestCtx) {
 	defer s.MTX.RUnlock()
 
 	for _, anagram := range req.Anagrams {
-		// anagram := storage.TAnagram(a)
 		key := anagram.Key()
 
 		// Если слов с такой комбинацией букв не встречалось, создаем запись в хранилище
